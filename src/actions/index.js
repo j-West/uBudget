@@ -1,7 +1,10 @@
+import axios from 'axios'
+
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const GET_BUDGETS = 'GET_BUDGETS'
 export const ADD_EXPENSE = 'ADD_EXPENSE'
 
+const ROOT_URL = `http://localhost:3000/api/`
 
 export function tryLogin(values,
   // redirectCB
@@ -29,14 +32,12 @@ export function addExpense(values,
 }
 
 
-export function getUserBudgets(values,
-  // redirectCB
-) {
-  //make request to server for login
-  // .then(() => redirectCB())
+export function getUserBudgets() {
+  const endpoint = "getBudgets"
+  const request = axios.get(`${ROOT_URL}${endpoint}`)
 
   return {
     type: GET_BUDGETS,
-    payload: { msg: 'slow down there speedracer'}
+    payload: request
   }
 }
