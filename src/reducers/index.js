@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import {reducer as formReducer } from 'redux-form'
-import budgetReducer from './budgetReducer'
+import BudgetReducer from './budgetReducer'
 
 const rootReducer = combineReducers({
-  budget: budgetReducer,
+  budgets: BudgetReducer,
   form: formReducer
 });
 
