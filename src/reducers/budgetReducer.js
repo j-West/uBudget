@@ -1,12 +1,12 @@
 import { GET_BUDGETS, ADD_EXPENSE, TRY_LOGIN } from '../actions'
+import _ from 'lodash'
 
 export default function(state = {}, action) {
 
   switch(action.type) {
 
   case GET_BUDGETS:
-    console.log(action.payload.data)
-    return { ...state, [action.payload.data[0]._id]: action.payload.data[0] }
+    return _.mapKeys(action.payload.data, '_id')
 
   default:
     return state
