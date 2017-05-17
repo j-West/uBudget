@@ -1,4 +1,4 @@
-import { GET_BUDGETS, ADD_EXPENSE, TRY_LOGIN } from '../actions'
+import { GET_BUDGETS, ADD_EXPENSE, TRY_LOGIN } from '../actions/types'
 import _ from 'lodash'
 
 export default function(state = {}, action) {
@@ -6,7 +6,8 @@ export default function(state = {}, action) {
   switch(action.type) {
 
   case GET_BUDGETS:
-    return _.mapKeys(action.payload.data, '_id')
+    return { budgets : _.mapKeys(action.payload, "_id") }
+
 
   default:
     return state
