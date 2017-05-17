@@ -5,12 +5,10 @@ import { LineChart, PieChart, AreaChart } from 'react-chartkick';
 import { getUserBudgets } from '../actions'
 
 class Chart extends Component {
-  componentDidMount() {
-    this.props.getUserBudgets()
-  }
+
 
   displayBudgets() {
-
+console.log(`budget:`, budget);
     return _.map(this.props.budgets, budget => {
       return (
       <li key={budget._id}>
@@ -23,27 +21,43 @@ class Chart extends Component {
 
 
   render() {
- let data = [
-   {"name":"Workout", "data": {"2013-02-10 00:00:00 -0800": 3, "2013-02-17 00:00:00 -0800": 4}},
-   {"name":"Call parents", "data": {"2013-02-10 00:00:00 -0800": 5, "2013-02-17 00:00:00 -0800": 3}}
- ];
+    console.log(`this.props:`, this.props);
+ // let data = [
+ //   {"name":"Workout", "data": {"2013-02-10 00:00:00 -0800": 3, "2013-02-17 00:00:00 -0800": 4}},
+ //   {"name":"Call parents", "data": {"2013-02-10 00:00:00 -0800": 5, "2013-02-17 00:00:00 -0800": 3}}
+ // ];
 
-    if (!this.props.budgets) {
-      return <div>Loading budgets now. </div>
+    if(this.props.budget) {
+      return (
+        <div>
+          <ul>
+            <li>{ this.props.userId }</li>
+            <li>{ this.props.budgets }</li>
+          </ul>
+
+
+        </div>
+      )
     }
 
-        return  (
-          <div>
-            <ul>
-              {this.displayBudgets()}
-            </ul>
-            <AreaChart data={data} />
-          </div>
+    return  (
+      <div>
+        <ul>
+          <li>{ this.props.userId }</li>
+          <li>{ this.props.budgets }</li>
+        </ul>
+
+
+      </div>
       )}
  }
 
  function mapStateToProps(state) {
-  return { budgets: state.budgets }
+console.log(`state:`,);
+  return {
+    budgets: state.userBudgets.budgets,
+    userId: state.auth.userId
+  }
 }
 
-export default connect(mapStateToProps, { getUserBudgets })(Chart)
+export default connect(mapStateToProps, {getUserBudgets})(Chart)
