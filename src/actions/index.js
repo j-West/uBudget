@@ -1,29 +1,47 @@
 import axios from 'axios'
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './types'
 
-export const TRY_LOGIN = 'TRY_LOGIN'
-export const GET_BUDGETS = 'GET_BUDGETS'
-export const ADD_EXPENSE = 'ADD_EXPENSE'
 
 const ROOT_URL = `http://localhost:3000/api/`
 
-export function tryLogin(values,
-  // redirectCB
-) {
-  //make request to server for login
-  // .then(() => redirectCB())
+export function signInUp({email, password}, endpoint) {
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}${endpoint}`, {email, password})
+    .then(response => {
 
-  return {
-    type: TRY_LOGIN,
-    payload: { msg: 'slow down there speedracer'}
+      dispatch({
+        type : AUTH_USER,
+        payload : response.data.userId
+       })
+
+       dispatch({
+         type: GET_BUDGETS,
+         payload: response.data.budgets
+       })
+
+      localStorage.setItem('token', response.data.token)
+    })
+    .catch(() => {
+      dispatch(authError('The email and password you entered to not match a registered user.'))
+    })
   }
 }
 
+export function authError(error) {
+  return {
+    type:AUTH_ERROR,
+    payload: error
+  }
+}
 
-export function addExpense(values,
-  // redirectCB
-) {
-  //make request to server for login
-  // .then(() => redirectCB())
+export function signUserOut() {
+  localStorage.removeItem('token')
+
+  return { type: UNAUTH_USER }
+}
+
+
+export function addExpense(values) {
 
   return {
     type: ADD_EXPENSE,
@@ -32,12 +50,12 @@ export function addExpense(values,
 }
 
 
-export function getUserBudgets() {
-  const endpoint = "getBudgets"
-  const request = axios.get(`${ROOT_URL}${endpoint}`)
+export function getUserBudgets(userId) {
 
-  return {
-    type: GET_BUDGETS,
-    payload: request
-  }
+  const request = axios.get(`${ROOT_URL}getbudgets`, {userId})
+
+    return{
+      type: GET_BUDGETS,
+      payload: request
+    }
 }
