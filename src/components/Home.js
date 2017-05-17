@@ -15,7 +15,6 @@ export default class Home extends Component {
           <h1 className='text-center bottom-margin-5'>uBudget</h1>
         <div className='row'>
           <HomeDetails />
-          <LoginForm />
         </div>
       </div>
     )
