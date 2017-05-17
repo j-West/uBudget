@@ -1,9 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default class Navbar extends Component {
+
+class Navbar extends Component {
+
+    renderLinks() {
+      if(this.props.authenticated) {
+        return [
+          <li className="nav-item" key={1}>
+            <Link className="nav-link" to="/profile">Profile</Link>
+          </li>,
+          <li className="nav-item" key={2}>
+            <Link className="nav-link" to="/signout">Sign Out</Link>
+          </li>
+        ]
+      } else {
+        return [
+          <li className="nav-item" key={1}>
+            <Link className="nav-link" to="/signin">Sign In</Link>
+          </li>,
+          <li className="nav-item" key={2}>
+            <Link className="nav-link" to="/signup">Register</Link>
+          </li>
+        ]
+      }
+
+    }
   render() {
-    const profileClasses = `nav-link ${!this.props.user ? 'disabled' : ''}`
     return (
       <div className='bottom-margin-5 no-gutter'>
         <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -14,18 +38,10 @@ export default class Navbar extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
-              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/features">Features</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">Register</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">Profile</Link>
-              </li>
+              { this.renderLinks() }
             </ul>
             <span className="navbar-text">
               Let uBudget help keep your spending in check!
@@ -36,3 +52,11 @@ export default class Navbar extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.auth.authenticated
+  }
+}
+
+export default connect(mapStateToProps)(Navbar)
