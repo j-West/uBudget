@@ -1,63 +1,54 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { LineChart, PieChart, AreaChart } from 'react-chartkick';
+import { Link } from 'react-router'
+import { PieChart, LineChart } from 'react-chartkick';
 import { getUserBudgets } from '../actions'
 
-class Chart extends Component {
+export default class Chart extends Component {
 
-
-  displayBudgets() {
-console.log(`budget:`, budget);
-    return _.map(this.props.budgets, budget => {
-      return (
-      <li key={budget._id}>
-        <p>{budget.month}</p>
-        {budget.expenses.map(expense => <p>{expense}</p>)}
-      </li>
-      )
+  ChartDataHelper(expenses) {
+    let data = {}
+    expenses.map(({category, expense}) => {
+      data[category] = expense
     })
+    return data
+
   }
 
+  formatBudgets() {
+    // console.log(`this.props.budgets:`, this.props.budgets);
+    let months = _.map(this.props.budgets, budget => {
+      let data = this.ChartDataHelper(budget.expenses)
+      return {
+        "month" : budget.monthName,
+        "data" : data
+      }
+    })
+    console.log(`func1:`, months);
+     return this.func2(months)
+
+  }
+
+  displayCharts(months) {
+    console.log(`func2:`, months);
+    return months.map(({ month, data}) => {
+        return (
+          <div className='col-md-4'>
+            <h3>{month}</h3>
+            <PieChart data={data} label={month} />
+           </div>
+        )
+      })
+  }
 
   render() {
-    console.log(`this.props:`, this.props);
- // let data = [
- //   {"name":"Workout", "data": {"2013-02-10 00:00:00 -0800": 3, "2013-02-17 00:00:00 -0800": 4}},
- //   {"name":"Call parents", "data": {"2013-02-10 00:00:00 -0800": 5, "2013-02-17 00:00:00 -0800": 3}}
- // ];
-
-    if(this.props.budget) {
-      return (
-        <div>
-          <ul>
-            <li>{ this.props.userId }</li>
-            <li>{ this.props.budgets }</li>
-          </ul>
-
-
-        </div>
-      )
-    }
 
     return  (
       <div>
-        <ul>
-          <li>{ this.props.userId }</li>
-          <li>{ this.props.budgets }</li>
-        </ul>
 
+          { this.formatBudgets() }
 
       </div>
       )}
  }
-
- function mapStateToProps(state) {
-console.log(`state:`,);
-  return {
-    budgets: state.userBudgets.budgets,
-    userId: state.auth.userId
-  }
-}
-
-export default connect(mapStateToProps, {getUserBudgets})(Chart)
