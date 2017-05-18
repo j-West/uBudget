@@ -26,7 +26,7 @@ export default class Chart extends Component {
       }
     })
     console.log(`func1:`, months);
-     return this.func2(months)
+     return this.displayCharts(months)
 
   }
 
