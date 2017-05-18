@@ -35,6 +35,10 @@ class SignIn extends Component {
 }
 
 renderAlert() {
+  if(this.props.authenticated) {
+    return <Redirect to='/profile' />
+  }
+  
   if(this.props.errorMessage) {
     return (
       <div className='alert alert-danger'>
@@ -43,9 +47,6 @@ renderAlert() {
         </strong>
       </div>
     )
-  }
-  else if(this.props.authenticated) {
-    return <Redirect to='/profile' />
   }
 }
 
@@ -94,8 +95,8 @@ function validate(values) {
 
 const mapStateToProps = (state) => {
   return {
-    errorMessage: state.auth.error,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    errorMessage: state.auth.error
   }
 }
 
