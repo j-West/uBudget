@@ -4,22 +4,21 @@ import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './
 
 const ROOT_URL = `http://localhost:3000/api/`
 
-export function signInUp({email, password}, endpoint) {
+export function signInUp(values, endpoint) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}${endpoint}`, {email, password})
+    axios.post(`${ROOT_URL}${endpoint}`, values)
     .then(response => {
+      console.log(`response:`, response);
+      localStorage.setItem('token', response.data.token)
 
       dispatch({
         type : AUTH_USER,
         payload : response.data.userId
        })
-
-       dispatch({
-         type: GET_BUDGETS,
-         payload: response.data.budgets
-       })
-
-      localStorage.setItem('token', response.data.token)
+       return response
+     })
+     .then(response => {
+       dispatch(getUserBudgets(response.data.userId))
     })
     .catch(() => {
       dispatch(authError('The email and password you entered to not match a registered user.'))
@@ -52,7 +51,8 @@ export function addExpense(values) {
 
 export function getUserBudgets(userId) {
 
-  const request = axios.get(`${ROOT_URL}getbudgets`, {userId})
+
+  const request = axios.post(`${ROOT_URL}getbudgets`, { userId })
 
     return{
       type: GET_BUDGETS,
