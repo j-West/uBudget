@@ -1,3 +1,32 @@
 .bottom-margin-5 {
   margin-bottom: 5em;
 }
+
+.inlineDiv {
+  display: inline-block;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flex-container-budget {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.flex-container-child {
+  flex-grow: 2;
+}
+
+
+.new-expense-bg {
+  background-color: rgba(184, 240, 122, 0.27);
+}
+
+.header-welcome {
+  font-size: 5em;
+}
