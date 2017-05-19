@@ -36,14 +36,24 @@ class NewExpense extends Component {
     const { handleSubmit } = this.props
 
     return (
-        <div className='col-lg-4'>
-          <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+        <div className='new-expense-bg'>
+          <form className='flex-container' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
             <Field
-              label={ this.props.type }
-              name={ this.props.type.toLowerCase() }
+              label='Expense'
+              name='expense'
               component={ this.renderField }
             />
-            <button type='submit' className='btn'>Add</button>
+            <Field
+              label='Please enter a budget name'
+              name='month'
+              component={this.renderField}
+            />
+            <Field
+              label='Type of expense:'
+              name='category'
+              component={this.renderSelect}
+            />
+            <button type='submit' className='btn btn-success'>Add Expense</button>
           </form>
       </div>
     )
