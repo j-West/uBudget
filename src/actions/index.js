@@ -1,20 +1,24 @@
 import axios from 'axios'
+import _ from 'lodash'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './types'
 
 
 const ROOT_URL = `http://localhost:3000/api/`
+axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 
 export function signInUp(values, endpoint) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}${endpoint}`, values)
     .then(response => {
-      console.log(`response:`, response);
+
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('userId', response.data.userId)
 
       dispatch({
         type : AUTH_USER,
         payload : response.data.userId
        })
+
        return response
      })
      .then(response => {
@@ -82,18 +86,12 @@ export function addExpense(values) {
       dispatch(getUserBudgets(currentState.auth.userId))
     })
 
-  return {
-    type: ADD_EXPENSE,
-    payload: { msg: 'slow down there speedracer'}
   }
 }
 
 
 export function getUserBudgets(userId) {
-
-
   const request = axios.post(`${ROOT_URL}getbudgets`, { userId })
-
     return{
       type: GET_BUDGETS,
       payload: request
