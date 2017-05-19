@@ -54,12 +54,22 @@ class NewExpense extends Component {
 function validate(values) {
   const errors = {}
 
-  if (!values.income || !values.expense) {
-    errors.displayError = "Please enter an amount"
+  if (!values.expense) {
+    errors.expense = "Please enter an amount."
+  }
+
+  if (!values.month) {
+    errors.month = "Please enter the month you want to add this expense to."
+  }
+
+  if (!values.category) {
+    errors.category = "Please enter the category of this expense."
   }
 
   return errors
 }
+
+
 
 export default reduxForm({
   validate,
