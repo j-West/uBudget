@@ -5,9 +5,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import promise from 'redux-promise'
 import reduxThunk from 'redux-thunk'
+import _ from 'lodash'
 
 import Home from './components/Home'
-import Features from './components/Features'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import SignUp from './components/SignUp'
@@ -30,15 +30,23 @@ store.subscribe(_.throttle(() => {
     saveState(store.getState())
   }, 1000))
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
+const token = localStorage.getItem('token')
+const userId = localStorage.getItem('userId')
+
+if (token !== null && userId !== null) {
+  store.dispatch({
+                  type: AUTH_USER,
+                  payload : userId
+                 })
+  store.dispatch(getUserBudgets(userId))
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(rootReducer)}>
+  <Provider store={store}>
     <BrowserRouter>
       <div>
         <Switch>
           <Route path='/register' component={ Register } />
-          <Route path='/features' component={ Features } />
           <Route path='/profile' component={ RequireAuth(Profile) } />
           <Route path='/signup' component={ SignUp } />
           <Route path='/signin' component={ SignIn } />
