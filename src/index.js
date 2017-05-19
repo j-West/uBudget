@@ -26,6 +26,9 @@ const store = createStore(
   applyMiddleware(reduxThunk, promise)
 )
 
+store.subscribe(_.throttle(() => {
+    saveState(store.getState())
+  }, 1000))
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 
