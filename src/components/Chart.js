@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { Link } from 'react-router'
-import { PieChart, LineChart } from 'react-chartkick';
+import { PieChart } from 'react-chartkick';
 import { getUserBudgets } from '../actions'
 
 export default class Chart extends Component {
@@ -10,6 +9,7 @@ export default class Chart extends Component {
   ChartDataHelper(expenses) {
     let data = {}
     expenses.map(({category, expense}) => {
+      category = category[0].toUpperCase() + category.substr(1)
       data[category] = expense
     })
     return data
@@ -17,26 +17,24 @@ export default class Chart extends Component {
   }
 
   formatBudgets() {
-    // console.log(`this.props.budgets:`, this.props.budgets);
     let months = _.map(this.props.budgets, budget => {
       let data = this.ChartDataHelper(budget.expenses)
       return {
-        "month" : budget.monthName,
+        "month" : budget.budgetName,
         "data" : data
       }
     })
-    console.log(`func1:`, months);
      return this.displayCharts(months)
 
   }
 
   displayCharts(months) {
-    console.log(`func2:`, months);
     return months.map(({ month, data}) => {
+      month = month[0].toUpperCase() + month.substr(1)
         return (
-          <div className='col-md-4'>
-            <h3>{month}</h3>
-            <PieChart data={data} label={month} />
+          <div key={month} className='col-md-4 inlineDiv'>
+            <h3 className='text-center'>{month}</h3>
+            { data.Bill || data.Food || data.Gas ? <PieChart data={data} label={month} /> : <h6 className='text-center'>Add an expense to populate {month}'s chart</h6>}
            </div>
         )
       })
@@ -45,10 +43,8 @@ export default class Chart extends Component {
   render() {
 
     return  (
-      <div>
-
+      <div className='bottom-margin-5 mt-2'>
           { this.formatBudgets() }
-
       </div>
       )}
  }
