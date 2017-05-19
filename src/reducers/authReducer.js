@@ -4,13 +4,13 @@ export default function (state = {}, action) {
 
   switch(action.type) {
     case AUTH_USER:
-      return { ...state, authenticated : true, userId : action.payload }
+      return { ...state, "authenticated" : true, "userId" : action.payload }
 
     case UNAUTH_USER:
-      return { ...state, authenticated: false, userId : null }
+      return { ...state, "authenticated": false, "userId" : '' }
 
     case AUTH_ERROR:
-      return { ...state, error: action.payload}
+      return { ...state, "error": action.payload}
   }
 
   return state

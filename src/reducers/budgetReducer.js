@@ -6,9 +6,7 @@ export default function(state = {}, action) {
   switch(action.type) {
 
   case GET_BUDGETS:
-  console.log(`action:`, action);
-    return { budgets: _.mapKeys(action.payload.data, "monthName") }
-
+    return { budgets: _.mapKeys(action.payload.data, "budgetName") }
 
   default:
     return state
