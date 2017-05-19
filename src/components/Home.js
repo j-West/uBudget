@@ -12,7 +12,7 @@ export default class Home extends Component {
     return (
       <div>
         <Navbar />
-          <h1 className='text-center bottom-margin-5'>uBudget</h1>
+          <h1 className='text-center display-1'>uBudget</h1>
         <div className='row'>
           <HomeDetails />
         </div>
