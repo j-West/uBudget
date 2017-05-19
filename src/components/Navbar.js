@@ -38,13 +38,10 @@ class Navbar extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/features">Features</Link>
-              </li>
               { this.renderLinks() }
             </ul>
             <span className="navbar-text">
-              Let uBudget help keep your spending in check!
+              Let uBudget help you keep track of your spending!
             </span>
           </div>
         </nav>
