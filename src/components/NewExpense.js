@@ -17,18 +17,34 @@ class NewExpense extends Component {
           className="form-control col-7"
           { ...field.input }
         />
-        <div className='text-help'>
+  renderSelect(field) {
+
+    const { meta: { touched, error }} = field
+    const divClassNames = `form-group flex-container-child ${ touched && error ? 'text-danger' : ''}`
+
+    return (
+      <div className={ divClassNames}>
+        <label>{ field.label }</label>
+        <select
+          className='form-control col-7'
+          {...field.input }>
+          <option value="">Select a category...</option>
+          <option value='bill' key='bill'>Bill</option>
+          <option value='food' key='food'>Food</option>
+          <option value='gas' key='gas'>Gas</option>
+        </select>
+        <div className='text-danger'>
           { touched ? error : ' '}
         </div>
       </div>
     )
   }
 
+
+
   onSubmit(values) {
-    console.log('values', values)
-    this.props.addExpense(values, () => {
-      console.log('redirect to profile page or something', values)
-    })
+    this.props.addExpense(values)
+    this.props.reset()
   }
 
   render() {
