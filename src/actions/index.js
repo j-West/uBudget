@@ -35,10 +35,26 @@ export function authError(error) {
 
 export function signUserOut() {
   localStorage.removeItem('token')
+  localStorage.removeItem('userId')
 
   return { type: UNAUTH_USER }
 }
 
+export function createBudget(values) {
+  return function(dispatch, getState) {
+    const currentState = getState()
+    values.budgetName = values.budgetName.toLowerCase()
+    values._creator = currentState.auth.userId
+    axios.post(`${ROOT_URL}addbudget`, values)
+    .then(response => {
+      dispatch(getUserBudgets(currentState.auth.userId))
+    })
+      // return{
+      //   type: ADD_BUDGET,
+      //   payload: request
+      // }
+  }
+}
 
 export function addExpense(values) {
 
