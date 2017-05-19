@@ -6,6 +6,7 @@
   display: inline-block;
 }
 
+
 .flex-container {
   display: flex;
   flex-direction: row;
@@ -15,7 +16,7 @@
 .flex-container-budget {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .flex-container-child {
@@ -29,4 +30,8 @@
 
 .header-welcome {
   font-size: 5em;
+}
+
+.center-charts {
+  margin: 0 auto;
 }
