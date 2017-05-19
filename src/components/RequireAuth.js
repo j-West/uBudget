@@ -9,7 +9,7 @@ export default function(ComposedComponent) {
       if(this.props.authenticated) {
         return <ComposedComponent {...this.props} />
       } else {
-        return <Redirect to='/' />
+        return <Redirect to='/signin' />
       }
     }
 
@@ -19,7 +19,7 @@ export default function(ComposedComponent) {
   }
 
   function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated };
+    return { authenticated : state.auth.authenticated };
   }
 
   return connect(mapStateToProps)(RequireAuth);
