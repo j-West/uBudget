@@ -56,7 +56,31 @@ export function createBudget(values) {
   }
 }
 
+
 export function addExpense(values) {
+  return function(dispatch, getState) {
+    const currentState = getState()
+    values.month = values.month.toLowerCase()
+    let addNewExpense = {}
+    _.map(currentState.userBudgets.budgets[values.month.toLowerCase()], month => {
+      _.map(month, expense => {
+        addNewExpense[expense.category] = expense.category === values.category.toLowerCase()
+          ? {
+            "expense" : (expense.expense + Number(values.expense)),
+            "_id" : expense._id
+          } : ''
+      })
+    })
+
+    if (addNewExpense[values.category]) {
+      values.expense = addNewExpense[values.category].expense
+      values._id = addNewExpense[values.category]._id
+    }
+
+    axios.post(`${ROOT_URL}addexpense`, { values, "_id" : currentState.userBudgets.budgets[values.month]._id })
+    .then(response => {
+      dispatch(getUserBudgets(currentState.auth.userId))
+    })
 
   return {
     type: ADD_EXPENSE,
