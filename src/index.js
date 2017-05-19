@@ -15,8 +15,16 @@ import SignIn from './components/SignIn'
 import SignOut from './components/SignOut'
 import RequireAuth from './components/RequireAuth'
 import rootReducer from './reducers';
+import { AUTH_USER } from './actions/types'
+import { getUserBudgets } from './actions'
+import { saveState, loadState } from './persistState'
 
 
+const store = createStore(
+  rootReducer,
+  loadState(),
+  applyMiddleware(reduxThunk, promise)
+)
 
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
