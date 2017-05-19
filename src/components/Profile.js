@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 import { Field,  reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { addExpense } from '../actions'
+import _ from 'lodash'
 import { getUserBudgets } from '../actions'
 
 import Navbar from './Navbar'
 import Chart from './Chart'
 import NewExpense from './NewExpense'
+import NewBudget from './NewBudget'
 
 
 class Profile extends Component {
 
+
   render() {
+
+    let budgetNames = _.map(this.props.budgets, budget => {
+      return budget.budgetName
+    })
+
     return (
       <div>
         <Navbar />
+        <NewExpense budgets={ budgetNames } />
+        <NewBudget budgets={ budgetNames } />
         <Chart budgets={this.props.budgets} />
-        <NewExpense type='Expense' addExpense={this.props.addExpense()} />
       </div>
     )
   }
@@ -24,9 +32,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
  return {
-   budgets: state.userBudgets.budgets,
-   userId: state.auth.userId
+   budgets: state.userBudgets.budgets
  }
 }
 
-export default connect(mapStateToProps, { getUserBudgets, addExpense })(Profile)
+export default connect(mapStateToProps)(Profile)
