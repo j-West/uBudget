@@ -1,0 +1,6 @@
+export const AUTH_USER = 'AUTH_USER'
+export const UNAUTH_USER = 'UNAUTH_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const USER_LOGIN = 'USER_LOGIN'
+export const GET_BUDGETS = 'GET_BUDGETS'
+export const ADD_EXPENSE = 'ADD_EXPENSE'
