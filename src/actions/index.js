@@ -2,8 +2,8 @@ import axios from 'axios'
 import _ from 'lodash'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './types'
 
-
 const ROOT_URL = `https://morning-fortress-82747.herokuapp.com/api/`
+
 axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 
 export function signInUp(values, endpoint) {
