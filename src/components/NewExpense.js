@@ -26,28 +26,6 @@ class NewExpense extends Component {
     )
   }
 
-  // renderSelect(field) {
-  //
-  //   const { meta: { touched, error }} = field
-  //   const divClassNames = `form-group flex-container-child ${ touched && error ? 'text-danger' : ''}`
-  //
-  //   return (
-  //     <div className={ divClassNames}>
-  //       <label>{ field.label }</label>
-  //       <select
-  //         className='form-control col-7'
-  //         {...field.input }>
-  //         <option value="">Select a category...</option>
-  //         <option value='bill' key='bill'>Bill</option>
-  //         <option value='food' key='food'>Food</option>
-  //         <option value='gas' key='gas'>Gas</option>
-  //       </select>
-  //       <div className='text-danger'>
-  //         { touched ? error : ' '}
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
 
 
@@ -64,12 +42,12 @@ class NewExpense extends Component {
         <div className='new-expense-bg'>
           <form className='flex-container' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
             <Field
-              label='Expense'
+              label='Expense Amount'
               name='expense'
               component={ this.renderField }
             />
             <Field
-              label='Please enter a budget name'
+              label='Please enter a budget to add the expense to'
               name='month'
               component={this.renderField}
             />
@@ -78,11 +56,6 @@ class NewExpense extends Component {
               name='category'
               component={this.renderField}
             />
-            {/* <Field
-              label='Type of expense:'
-              name='category'
-              component={this.renderSelect}
-            /> */}
             <button type='submit' className='btn small-btn btn-success'>Add Expense</button>
           </form>
       </div>
@@ -94,16 +67,16 @@ class NewExpense extends Component {
 function validate(values) {
   const errors = {}
 
-  if (!values.expense) {
-    errors.expense = "Please enter an amount."
+  if (!values.expense || !/^[0-9.]+$/.test(values.expense)) {
+    errors.expense = "Please enter a dollar amount.  Examples: 45 or 45.00."
   }
 
-  if (!values.month) {
+  if (!values.month || !/^[a-zA-Z]+$/.test(values.month)) {
     errors.month = "Please enter the month you want to add this expense to."
   }
 
-  if (!values.category) {
-    errors.category = "Please enter the category of this expense."
+  if (!values.category || !/^[a-zA-Z]+$/.test(values.category)) {
+    errors.category = "Please enter only letters."
   }
 
   return errors
