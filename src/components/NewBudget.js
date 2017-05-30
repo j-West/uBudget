@@ -58,7 +58,7 @@ function validate(values) {
 
   const errors = {}
 
-  if (!values.budgetName) {
+  if (!values.budgetName || !/^[a-zA-Z]+$/.test(values.budgetName)) {
     errors.budgetName = "Please enter a name for this budget."
   }
 
