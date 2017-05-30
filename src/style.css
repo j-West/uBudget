@@ -1,3 +1,17 @@
+body {
+  background-color: rgba(107, 107, 107, 1);
+  color: #fff !important;
+}
+
+nav {
+  background-color: rgb(153, 153, 153) !important;
+
+}
+
+.white-text {
+  color: #fff !important;
+}
+
 .bottom-margin-5 {
   margin-bottom: 5em;
 }
