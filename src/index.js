@@ -9,7 +9,7 @@ import _ from 'lodash'
 import 'tether'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'chart.js/dist/Chart.js'
-
+import './style.css'
 
 import Home from './components/Home'
 import Register from './components/Register'
@@ -22,6 +22,11 @@ import rootReducer from './reducers';
 import { AUTH_USER } from './actions/types'
 import { getUserBudgets } from './actions'
 import { saveState, loadState } from './persistState'
+
+import jquery from 'jquery';
+window.$ = window.jQuery = jquery
+window.Tether = { }
+require('bootstrap/dist/js/bootstrap.js')
 
 
 const store = createStore(
