@@ -2,7 +2,11 @@
 
 export const saveState = (state) => {
   try {
-    const stateAsString = JSON.stringify(state);
+    const partialState = {}
+    partialState.auth = state.auth
+    partialState.auth.error = undefined
+    partialState.userBudgets = state.userBudgets
+    const stateAsString = JSON.stringify(partialState);
     localStorage.setItem('state', stateAsString);
   } catch (error) {
     console.log(`saveStateError:`, error);
