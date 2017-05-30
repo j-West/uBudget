@@ -4,7 +4,7 @@ export default function (state = {}, action) {
 
   switch(action.type) {
     case AUTH_USER:
-      return { ...state, "authenticated" : true, "userId" : action.payload }
+      return { ...state, "authenticated" : true, "userId" : action.payload, "error": undefined }
 
     case UNAUTH_USER:
       return { ...state, "authenticated": false, "userId" : '' }
