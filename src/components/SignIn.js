@@ -38,10 +38,10 @@ renderAlert() {
   if(this.props.authenticated) {
     return <Redirect to='/profile' />
   }
-  
+
   if(this.props.errorMessage) {
     return (
-      <div className='alert alert-danger'>
+      <div className='alert alert-danger text-center'>
         <strong>
           {this.props.errorMessage}
         </strong>

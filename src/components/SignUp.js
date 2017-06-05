@@ -37,7 +37,7 @@ class Signup extends Component {
 renderAlert() {
   if(this.props.errorMessage) {
     return (
-      <div className='alert alert-danger'>
+      <div className='alert alert-danger text-center'>
         <strong>
           {this.props.errorMessage}
         </strong>
@@ -102,7 +102,8 @@ function validate(values) {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    errorMessage: state.auth.error
   }
 }
 
