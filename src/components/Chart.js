@@ -44,7 +44,6 @@ export default class Chart extends Component {
 
 
   render() {
-    console.log(`this.props.budget:`, this.props.budget);
 
     return  (
       <div className='bottom-margin-5 mt-2'>
