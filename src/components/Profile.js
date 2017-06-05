@@ -20,10 +20,12 @@ class Profile extends Component {
     })
 
     return (
-      <div>
+      <div className='mb-3'>
         <Navbar />
+        <div className='row new-expense-bg mb-2 top-margin-5'>
         <NewExpense budgets={ budgetNames } />
         <NewBudget budgets={ budgetNames } />
+          </div>
         <Chart budgets={this.props.budgets} />
       </div>
     )
