@@ -10,7 +10,7 @@ export function signInUp(values, endpoint) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}${endpoint}`, values)
     .then(response => {
-      console.log(`response:`, response);
+      
       if (response.data.error) {
         throw new Error()
       }
