@@ -12,7 +12,7 @@ export default class Home extends Component {
     return (
       <div>
         <Navbar />
-          <h1 className='text-center display-1 mb-3'>uBudget</h1>
+          <h1 className='text-center display-1 mb-3 top-margin-5'>uBudget</h1>
           <h4 className='text-center bottom-margin-5'>Register today and start seeing how much you spend on what!</h4>
           <div className="flex-container-budget mt-3">
             <PieChart className='' data={[["Gas", 3], ["Bill", 8], ["Food", 5]]} />
