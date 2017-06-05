@@ -41,15 +41,6 @@ export default class Chart extends Component {
       })
   }
 
-  showInstructions() {
-    return (
-      <div>
-        <h3>Thank you for registering with uBudget!</h3>
-        <p>To get started, create a new budget by entering a name for the budget and clicking the "Create Budget" button.</p>
-        <p>After creating a budget, you can start adding expenses to it by entering the amount your spent, the budget you wish to add the expense to, and the category of the expense.</p>
-      </div>
-    )
-  }
 
 
   render() {
@@ -57,7 +48,7 @@ export default class Chart extends Component {
 
     return  (
       <div className='bottom-margin-5 mt-2'>
-          { _.isEmpty(this.props.budgets) ? this.showInstructions() : this.formatBudgets() }
+          { this.formatBudgets() }
       </div>
       )}
  }
