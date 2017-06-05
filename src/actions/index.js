@@ -10,6 +10,10 @@ export function signInUp(values, endpoint) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}${endpoint}`, values)
     .then(response => {
+      console.log(`response:`, response);
+      if (response.data.error) {
+        throw new Error()
+      }
 
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('userId', response.data.userId)
@@ -21,11 +25,17 @@ export function signInUp(values, endpoint) {
 
        return response
      })
+
      .then(response => {
        dispatch(getUserBudgets(response.data.userId))
     })
-    .catch(() => {
+
+    .catch((error) => {
+      if (endpoint === 'signup') {
+        dispatch(authError('Email is already in use'))
+      } else {
       dispatch(authError('The email and password you entered to not match a registered user.'))
+        }
     })
   }
 }
