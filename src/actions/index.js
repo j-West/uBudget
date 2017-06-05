@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './types'
 
 const ROOT_URL = `https://morning-fortress-82747.herokuapp.com/api/`
+// const ROOT_URL = `http://localhost:5000/api/`
 
 axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 
@@ -15,26 +16,26 @@ export function signInUp(values, endpoint) {
         throw new Error()
       }
 
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('userId', response.data.userId)
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('userId', response.data.userId)
 
-      dispatch({
-        type : AUTH_USER,
-        payload : response.data.userId
+        dispatch({
+          type : AUTH_USER,
+          payload : response.data.userId
+         })
+
+         return response
        })
 
-       return response
-     })
-
-     .then(response => {
-       dispatch(getUserBudgets(response.data.userId))
-    })
+       .then(response => {
+         dispatch(getUserBudgets(response.data.userId))
+      })
 
     .catch((error) => {
       if (endpoint === 'signup') {
         dispatch(authError('Email is already in use'))
       } else {
-      dispatch(authError('The email and password you entered to not match a registered user.'))
+          dispatch(authError('The email and password you entered to not match a registered user.'))
         }
     })
   }
