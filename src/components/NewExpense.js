@@ -16,7 +16,7 @@ class NewExpense extends Component {
         <label>{ field.label }</label>
         <input
           type="text"
-          className="form-control col-7"
+          className="form-control"
           { ...field.input }
         />
         <div className='text-danger'>
@@ -39,8 +39,9 @@ class NewExpense extends Component {
     const { handleSubmit } = this.props
 
     return (
-        <div className='new-expense-bg'>
-          <form className='flex-container' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+        <div className='col-lg-5 ml-3'>
+          <h2 className='text-center'>Add New Expense</h2>
+          <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
             <Field
               label='Expense Amount'
               name='expense'
@@ -56,7 +57,7 @@ class NewExpense extends Component {
               name='category'
               component={this.renderField}
             />
-            <button type='submit' className='btn small-btn btn-success'>Add Expense</button>
+            <button type='submit' className='btn small-btn btn-success mb-2'>Add Expense</button>
           </form>
       </div>
     )
