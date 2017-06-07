@@ -46,3 +46,24 @@ nav {
   height: 50%;
   margin: auto;
 }
+
+
+@media (max-device-width: 736px) { 
+    .show-small {
+      display: block;
+    }
+    .show-large {
+      display: none;
+    }
+}
+
+@media (min-device-width: 737px) { 
+    .show-large {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .show-small {
+      display: none;
+    }
+}
