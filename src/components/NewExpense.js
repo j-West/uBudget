@@ -6,7 +6,6 @@ import '../style.css'
 
 class NewExpense extends Component {
 
-
   renderField(field) {
     const { meta: { touched, error }} = field
     const divClassNames = `form-group flex-container-child ${ touched && error ? 'text-danger' : ''}`
@@ -26,6 +25,32 @@ class NewExpense extends Component {
     )
   }
 
+  renderSelect(field) {
+    console.log(`field:`, field);
+    const { meta: { touched, error }} = field
+    const divClassNames = `form-group flex-container-child ${ touched && error ? 'text-danger' : ''}`
+    return (
+      <div className={ divClassNames}>
+        <label>{ field.label }</label>
+        <select
+          className='form-control'
+          {...field.input }>
+          <option value="">Select a budget...</option>
+          { field.budgets.map(budgetName => {
+            budgetName = budgetName[0].toUpperCase() + budgetName.substr(1)
+              return (
+                <option value={ budgetName } key={ budgetName }>{ budgetName }</option>
+              )
+            })
+            }
+        </select>
+        <div className='text-danger'>
+            { touched ? error : ' '}
+          </div>
+        </div>
+      )
+    }
+
 
 
 
@@ -37,7 +62,7 @@ class NewExpense extends Component {
   render() {
 
     const { handleSubmit } = this.props
-
+    console.log(`initialValues:`, this.props.budgets);
     return (
         <div className='col-lg-5 ml-3'>
           <h2 className='text-center'>Add New Expense</h2>
@@ -48,9 +73,10 @@ class NewExpense extends Component {
               component={ this.renderField }
             />
             <Field
-              label='Please enter a budget to add the expense to'
+              label='Select a Budget'
               name='month'
-              component={this.renderField}
+              component={ this.renderSelect }
+              budgets= { this.props.budgets }
             />
             <Field
               label='Type of Purchase'
@@ -72,8 +98,8 @@ function validate(values) {
     errors.expense = "Please enter a dollar amount.  Examples: 45 or 45.00."
   }
 
-  if (!values.month || !/^[a-zA-Z]+$/.test(values.month)) {
-    errors.month = "Please enter the month you want to add this expense to."
+  if (!values.month) {
+    errors.month = "Please select the month you want to add this expense to."
   }
 
   if (!values.category || !/^[a-zA-Z]+$/.test(values.category)) {
@@ -84,10 +110,8 @@ function validate(values) {
 }
 
 
-
 export default reduxForm({
   validate,
   form: 'AddNewExpense'
 })(
-  connect(null, { addExpense })(NewExpense)
-)
+  connect(null, { addExpense })(NewExpense))

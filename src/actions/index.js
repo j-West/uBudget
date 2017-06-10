@@ -1,6 +1,6 @@
 import axios from 'axios'
 import _ from 'lodash'
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE } from './types'
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_BUDGETS, ADD_EXPENSE, BUDGET_SELECT } from './types'
 
 const ROOT_URL = `https://morning-fortress-82747.herokuapp.com/api/`
 // const ROOT_URL = `http://localhost:5000/api/`
@@ -11,7 +11,7 @@ export function signInUp(values, endpoint) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}${endpoint}`, values)
     .then(response => {
-      
+
       if (response.data.error) {
         throw new Error()
       }
@@ -103,7 +103,7 @@ export function addExpense(values) {
 
 export function getUserBudgets(userId) {
   const request = axios.post(`${ROOT_URL}getbudgets`, { userId })
-    return{
+    return {
       type: GET_BUDGETS,
       payload: request
     }

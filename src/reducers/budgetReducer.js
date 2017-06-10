@@ -1,4 +1,4 @@
-import { GET_BUDGETS, ADD_EXPENSE, TRY_LOGIN } from '../actions/types'
+import { GET_BUDGETS } from '../actions/types'
 import _ from 'lodash'
 
 export default function(state = {}, action) {
